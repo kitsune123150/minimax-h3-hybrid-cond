@@ -130,6 +130,7 @@ Connect `ref_audio_1` for an audio reference, or use the H3 audio VAE output for
 ## Important settings
 
 - `length` is measured in frames and uses a 24 fps workflow. For approximately 5 seconds use `124` frames.
+- `ref_image_size=match` is required for identity/style fidelity. You need to set the ref image size to `Match`. If you set it to `Max`, the identity/style may get distorted.
 - `width` and `height` should be multiples of 32.
 - `ref_image_size=match` preserves the relative reference image size; `max` limits the reference short edge.
 - Do not combine separate H3 I2V and R2V conditioning nodes for the same sample. Use this Hybrid node so the packed layout and latent order remain consistent.

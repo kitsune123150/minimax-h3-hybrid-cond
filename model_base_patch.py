@@ -27,13 +27,16 @@ def install_hybrid_payload_patch():
         refs = kwargs.get("minimax_refs")
         visual_latents = []
         if keyframes is not None:
-            visual_latents.extend(item["latent"] for item in keyframes)
+            visual_latents.extend(item["latent"] for item in keyframes if item.get("latent") is not None)
         if refs is not None:
-            visual_latents.extend(item["latent"] for item in refs if "latent" in item)
+            visual_latents.extend(item["latent"] for item in refs if item.get("latent") is not None)
         if visual_latents:
             holder.cond["cond_video_latents"] = visual_latents
 
-        audio_latents = []
+        audio_latents = [
+            item["audio_latent"] for item in (keyframes or [])
+            if item.get("audio_latent") is not None
+        ]
         if refs is not None:
             audio_latents.extend(
                 item["audio_latent"]
